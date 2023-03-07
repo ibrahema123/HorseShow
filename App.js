@@ -1,20 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import { useState } from "react";
+import { StyleSheet, View } from "react-native";
+import MainScreen from "./screens/MainScreen";
+import HourseScreen from "./screens/HourseScreen";
 
 export default function App() {
+  const [hourseScreen, setHourseScreen] = useState(0);
+  let screen = hourseScreen;
+  if (hourseScreen == 0) {
+    screen = <MainScreen onPress={setHourseScreen}/>;
+  }
+  else
+  {
+    screen = <HourseScreen onPress={setHourseScreen}/>
+  }
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+  <View>{screen}</View>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create({});
