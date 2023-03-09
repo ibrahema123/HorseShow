@@ -2,18 +2,22 @@ import { View } from "react-native";
 import { ImageBackground } from "react-native";
 import { StyleSheet } from "react-native";
 
-function Card({ children, imageSorce}) {
-  return (
-    <View style={styles.viewStyle}>
+function Card({ children, cardStyle, imageSorce, imageStyle, isHeddin }) {
+  if (isHeddin) {
+    return <View></View>
+  }
+  else {
+    return (
       <ImageBackground
+        imageStyle={imageStyle}
         resizeMode="stretch"
         source={imageSorce}
-        style={styles.card}
+        style={[styles.card, cardStyle]}
       >
-        {children}
+        <View>{children}</View>
       </ImageBackground>
-    </View>
-  );
+    );
+  }
 }
 
 export default Card;
@@ -24,26 +28,13 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: 300,
     height: 190,
-    marginHorizontal: 12,
-    overflow: "hidden",
     borderRadius: 30,
+    overflow: "hidden",
     elevation: 4,
-    shadowColor: "red",
+    shadowColor: "black",
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 6,
     shadowOpacity: 0.25,
-    opacity: 0.6,
-    overlayColor: "black",
+    backgroundColor: '#000000'
   },
-  viewStyle: {
-    justifyContent: "flex-end",
-    alignItems: "center",
-    width: 300,
-    height: 190,
-    marginHorizontal: 12,
-    overflow: "hidden",
-    borderRadius: 30,
-    elevation: 4,
-    backgroundColor: 'black'
-  }
 });

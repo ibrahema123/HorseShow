@@ -4,13 +4,31 @@ import { Ionicons } from "@expo/vector-icons";
 import { ImageBackground } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 
-function HourseScreen( {onPress} ) {
-    function Home() {
-        onPress(0);
+function HourseScreen( {onPress, horseData, horseList, horseIndex} ) {
+  console.log(horseIndex)
+  function removeHorse(index) {
+    console.log(index)
+    let m = 0
+    if (index == 0)
+    {
+      m = 1;
     }
+    else {
+      m = index;
+    }
+    horseList.splice(index, m);
+    Home();
+  }
+
+  function Home() {
+      onPress('mainScreen');
+  }
+  function edit() {
+    onPress('editScreen');
+  }
   return (
     <ImageBackground
-      source={require("../assets/images/Hourse3.jpg")}
+      source={horseData.photo}
       resizeMode="cover"
       style={styles.backgroundImage}
     >
@@ -22,15 +40,20 @@ function HourseScreen( {onPress} ) {
         >
           {<Ionicons name="arrow-back"></Ionicons>}
         </Btn>
-        <Btn buttonStyle={styles.buttonStyle} buttonText={styles.buttonText}>
-          {<Ionicons name="heart"></Ionicons>}
+        <Btn buttonStyle={styles.buttonStyle} buttonText={styles.buttonText} onPress={removeHorse.bind(this, horseIndex)}>
+          {<Ionicons style={{color: 'red', fontSize: 15}} name="trash-outline"></Ionicons>}
         </Btn>
       </View>
       <View style={styles.viewStyle}>
-        <Text style={styles.cardTitle}>Fusaichi Pegasus</Text>
-        <Text style={styles.smallText}>Fusaichi Pegasus is Thoroughbred reachose that has earned the first spot on the list of the most expensive horses in the world.</Text>
-        <Text style={styles.mediumText}>Date of birth: May 12th, 2015</Text>
-        <Text style={styles.mediumText}>Price: $70 million</Text>
+        <View style={{flexDirection: 'row'}}>
+          <Text style={styles.cardTitle}>{horseData.name}</Text>
+          <Btn buttonStyle={styles.buttonStyle3} buttonText={styles.buttonText} onPress={edit}>
+            {<Ionicons style={{color: '#b9b9b9', fontSize: 30}} name="create-outline"></Ionicons>}
+          </Btn>
+        </View>
+        <Text style={styles.smallText}>{horseData.info}</Text> 
+        <Text style={styles.mediumText}>Date of birth: {horseData.dob}</Text>
+        <Text style={styles.mediumText}>Price: ${horseData.price}</Text>
         <View style={{flexDirection: 'row', justifyContent:'center'}}>
             <LinearGradient style={styles.buttonStyle2} colors={['rgba(177, 1, 1, 0.8)', 'black']}>
                 <Btn buttonStyle={[styles.buttonStyle2, {margin: 0}]} buttonText={styles.buttonText2}>Buy Now</Btn>
@@ -64,7 +87,7 @@ const styles = StyleSheet.create({
     borderRadius: 25,
   },
   buttonText: {
-    color: "#5a5a5ab4",
+    color: "#d3d3d3b4",
     fontWeight: "bold",
     paddingVertical: 7,
   },
@@ -81,9 +104,9 @@ const styles = StyleSheet.create({
   cardTitle: {
     color: "#ffffff",
     fontWeight: "bold",
-    paddingRight: 100,
+    paddingRight: 70,
     marginLeft: 30,
-    marginTop: 50,
+    marginTop: 20,
     fontSize: 23,
   },
   smallText: {
@@ -107,6 +130,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
   },
   buttonText2: {
+    color: "#fdfbfbb4",
+    fontWeight: "bold",
+  },
+  buttonStyle3: {
+    backgroundColor: "hsla(0, 5%, 54%, 0)",
+    borderRadius: 25,
+    paddingVertical: 1,
+    paddingHorizontal: 1,
+    marginBottom: 20,
+    marginTop: 20,
+    elevation: 0,
+  },
+  buttonText3: {
     color: "#fdfbfbb4",
     fontWeight: "bold",
   },

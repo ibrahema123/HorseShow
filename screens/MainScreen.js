@@ -1,16 +1,18 @@
 import { Ionicons } from "@expo/vector-icons";
-import Card from "../components/Card";
+import HorseComp from "../Entities/HorseComp";
+import { LinearGradient } from "expo-linear-gradient";
+
+import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 import Btn from "../components/Btn";
 
-import { StyleSheet, Text, View, Image, ScrollView } from "react-native";
 
-function MainScreen({ onPress }) {
-  function changeScreen() {
-    onPress(1);
+function MainScreen({ horseArray, changeScreen, horseData, horseIndex }) {
+  function changeHorseScreen(screen) {
+    changeScreen(screen);
   }
   return (
-    <ScrollView>
-      <View style={{ flex: 1, backgroundColor: "#fff5f5" }}>
+    <View style={{flex: 1}}>
+      <View style={{ backgroundColor: "#fff5f5" }}>
         <View style={styles.container}>
           <View style={[styles.container, styles.underLine]}>
             <Ionicons style={styles.icon} name="apps"></Ionicons>
@@ -23,73 +25,29 @@ function MainScreen({ onPress }) {
             </View>
           </View>
         </View>
-        <View style={[styles.container, { flex: 3 }]}>
-          <Card imageSorce={require("../assets/images/Hourse1.jpg")}>
-            <View style={styles.cardContainer}>
-              <View>
-                <Text style={styles.cardTitle}>Fusaichi Pegasus</Text>
-                <Text style={styles.cardPrice}>$70 milleon</Text>
-              </View>
-              <Btn
-                buttonText={styles.buttonText}
-                buttonStyle={styles.buttonStyle}
-                onPress={changeScreen}
-              >
-                {<Ionicons name="arrow-forward"></Ionicons>}
-              </Btn>
-            </View>
-          </Card>
-        </View>
-        <View style={[styles.container, { flex: 3 }]}>
-          <Card imageSorce={require("../assets/images/Hourse2.jpg")}>
-            <View style={styles.cardContainer}>
-              <View>
-                <Text style={styles.cardTitle}>Shareef Dancer</Text>
-                <Text style={styles.cardPrice}>$40 milleon</Text>
-              </View>
-              <Btn
-                buttonText={styles.buttonText}
-                buttonStyle={styles.buttonStyle}
-              >
-                {<Ionicons name="arrow-forward"></Ionicons>}
-              </Btn>
-            </View>
-          </Card>
-        </View>
-        <View style={[styles.container, { flex: 3 }]}>
-          <Card imageSorce={require("../assets/images/Hourse3.jpg")}>
-            <View style={styles.cardContainer}>
-              <View>
-                <Text style={styles.cardTitle}>Annihilator</Text>
-                <Text style={styles.cardPrice}>$19 milleon</Text>
-              </View>
-              <Btn
-                buttonText={styles.buttonText}
-                buttonStyle={styles.buttonStyle}
-              >
-                {<Ionicons name="arrow-forward"></Ionicons>}
-              </Btn>
-            </View>
-          </Card>
+        <View style={styles.addHorseContainer}>
+          <Text style={styles.addHorseText}>Your Horse</Text>
+          <LinearGradient
+            style={styles.addHorseBtnGrid}
+            colors={["rgba(177, 1, 1, 0.8)", "black"]}
+          >
+            <Btn buttonStyle={styles.addHorseBtn} onPress={changeHorseScreen.bind(this, 'addHorseScreen')}>Add New</Btn>
+          </LinearGradient>
         </View>
       </View>
-      <View style={[styles.container, { flex: 3, marginBottom: 20 }]}>
-        <Card imageSorce={require("../assets/images/Hourse4.jpg")}>
-          <View style={styles.cardContainer}>
-            <View>
-              <Text style={styles.cardTitle}>the Green Monkey</Text>
-              <Text style={styles.cardPrice}>$16 milleon</Text>
-            </View>
-            <Btn
-              buttonText={styles.buttonText}
-              buttonStyle={styles.buttonStyle}
-            >
-              {<Ionicons name="arrow-forward"></Ionicons>}
-            </Btn>
-          </View>
-        </Card>
-      </View>
-    </ScrollView>
+      <FlatList
+          style={styles.flatList}
+          data={horseArray}
+          renderItem={(itemData) => {
+            return (
+              <View style={[styles.container, { flex: 3 }]}>
+                <HorseComp horse={itemData.item} changeScreen={changeScreen} horseData={horseData} setHorseIndex={horseIndex} horseIndex={itemData.index}/>
+              </View>
+            );
+          }}
+          keyExtractor={(item) => item.name+Math.random().toString()}
+        />
+    </View>
   );
 }
 
@@ -97,12 +55,12 @@ export default MainScreen;
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     backgroundColor: "#fff5f5",
     alignItems: "center",
     justifyContent: "center",
     flexDirection: "row",
-    marginTop: 26,
+    marginTop: 20,
+    marginBottom: 5
   },
   icon: {
     backgroundColor: "#580000",
@@ -160,4 +118,32 @@ const styles = StyleSheet.create({
     color: "#ffffff",
     paddingRight: 100,
   },
+  imageStyle: {
+    opacity: 0.7,
+  },
+  addHorseContainer: {
+    margin: 30,
+    flexDirection: "row",
+  },
+  addHorseText: {
+    color: "#600000",
+    fontSize: 20,
+    fontWeight: "bold",
+  },
+  addHorseBtn: {
+    borderRadius: 10,
+    backgroundColor: "#00000000",
+    elevation: 0,
+    margin: 0,
+    paddingVertical: 3,
+    paddingHorizontal: 20,
+  },
+  addHorseBtnGrid: {
+    borderRadius: 10,
+    elevation: 4,
+    marginLeft: 130,
+  },
+  flatList: {
+    marginVertical: 10,
+  }
 });
