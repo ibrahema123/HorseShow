@@ -1,0 +1,29 @@
+{
+    "en": {
+        "appName": "Horse Show",
+        "Your_Horses": "Your Horses",
+        "Add_New_Horses": "Add New",
+        "Name": "Name",
+        "About": "About",
+        "Price": "Price",
+        "Add": "Add",
+        "Date_of_birth": "Date of birth",
+        "Buy_Now": "Buy Now",
+        "Edit_Your_Horse": "Edit Your Horse",
+        "Save": "Save"
+
+    },
+    "ar": {
+        "appName": "هورس شو",
+        "Your_Horses": "احصنتك",
+        "Add_New_Horses": "أضف حصان جديد",
+        "Name": "الاسم",
+        "About": "معلومات",
+        "Price": "السعر",
+        "Add": "أضف",
+        "Date_of_birth": "تاريخ الولادة",
+        "Buy_Now": "اشتر الان!",
+        "Edit_Your_Horse": "عدل حصانك",
+        "Save": "احفظ"
+    }
+}

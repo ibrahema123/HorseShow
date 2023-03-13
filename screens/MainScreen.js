@@ -6,17 +6,20 @@ import { StyleSheet, Text, View, Image, FlatList } from "react-native";
 import Btn from "../components/Btn";
 
 
-function MainScreen({ horseArray, changeScreen, horseData, horseIndex }) {
+function MainScreen({ horseArray, changeScreen, horseData, horseIndex ,i18n, toggleLanguage}) {
   function changeHorseScreen(screen) {
     changeScreen(screen);
   }
+
   return (
     <View style={{flex: 1}}>
       <View style={{ backgroundColor: "#fff5f5" }}>
         <View style={styles.container}>
           <View style={[styles.container, styles.underLine]}>
-            <Ionicons style={styles.icon} name="apps"></Ionicons>
-            <Text style={styles.title}>Horse show</Text>
+            <Btn buttonStyle={styles.button} onPress={toggleLanguage}>
+              <Ionicons style={styles.icon} name="apps"></Ionicons>
+            </Btn>
+            <Text style={styles.title}>{i18n.t('appName')}</Text>
             <View style={styles.imageContainer}>
               <Image
                 style={styles.profilePhoto}
@@ -26,12 +29,12 @@ function MainScreen({ horseArray, changeScreen, horseData, horseIndex }) {
           </View>
         </View>
         <View style={styles.addHorseContainer}>
-          <Text style={styles.addHorseText}>Your Horse</Text>
+          <Text style={styles.addHorseText}>{i18n.t('Your_Horses')}</Text>
           <LinearGradient
             style={styles.addHorseBtnGrid}
             colors={["rgba(177, 1, 1, 0.8)", "black"]}
           >
-            <Btn buttonStyle={styles.addHorseBtn} onPress={changeHorseScreen.bind(this, 'addHorseScreen')}>Add New</Btn>
+            <Btn buttonStyle={styles.addHorseBtn} onPress={changeHorseScreen.bind(this, 'addHorseScreen')}>{i18n.t('Add_New_Horses')}</Btn>
           </LinearGradient>
         </View>
       </View>
@@ -40,9 +43,10 @@ function MainScreen({ horseArray, changeScreen, horseData, horseIndex }) {
           data={horseArray}
           renderItem={(itemData) => {
             return (
-              <View style={[styles.container, { flex: 3 }]}>
+              <View style={[styles.container, { flex: 3}]}>
                 <HorseComp horse={itemData.item} changeScreen={changeScreen} horseData={horseData} setHorseIndex={horseIndex} horseIndex={itemData.index}/>
               </View>
+              
             );
           }}
           keyExtractor={(item) => item.name+Math.random().toString()}
@@ -63,10 +67,8 @@ const styles = StyleSheet.create({
     marginBottom: 5
   },
   icon: {
-    backgroundColor: "#580000",
     color: "#ffffff",
     fontSize: 25,
-    padding: 10,
     borderRadius: 70,
     elevation: 2,
     shadowColor: "#580000",
@@ -145,5 +147,12 @@ const styles = StyleSheet.create({
   },
   flatList: {
     marginVertical: 10,
+  },
+  button: {
+    backgroundColor: "#580000",
+    paddingHorizontal: 11,
+    paddingVertical: 10,
+    margin: 0,
+    borderRadius: 30
   }
 });

@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { ImageBackground } from "react-native";
 import { LinearGradient } from 'expo-linear-gradient';
 
-function HourseScreen( {onPress, horseData, horseList, horseIndex} ) {
+function HourseScreen( {onPress, horseData, horseList, horseIndex, i18n, toggleLanguage} ) {
   console.log(horseIndex)
   function removeHorse(index) {
     console.log(index)
@@ -52,11 +52,11 @@ function HourseScreen( {onPress, horseData, horseList, horseIndex} ) {
           </Btn>
         </View>
         <Text style={styles.smallText}>{horseData.info}</Text> 
-        <Text style={styles.mediumText}>Date of birth: {horseData.dob}</Text>
-        <Text style={styles.mediumText}>Price: ${horseData.price}</Text>
+        <Text style={styles.mediumText}>{i18n.t("Date_of_birth")}: {horseData.dob}</Text>
+        <Text style={styles.mediumText}>{i18n.t("Price")}: ${horseData.price}</Text>
         <View style={{flexDirection: 'row', justifyContent:'center'}}>
             <LinearGradient style={styles.buttonStyle2} colors={['rgba(177, 1, 1, 0.8)', 'black']}>
-                <Btn buttonStyle={[styles.buttonStyle2, {margin: 0}]} buttonText={styles.buttonText2}>Buy Now</Btn>
+                <Btn buttonStyle={[styles.buttonStyle2, {margin: 0}]} buttonText={styles.buttonText2}>{i18n.t("Buy_Now")}</Btn>
             </LinearGradient>
         </View>
       </View>

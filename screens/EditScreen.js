@@ -5,7 +5,7 @@ import { LinearGradient } from "expo-linear-gradient";
 import Btn from "../components/Btn";
 import { useState } from "react";
 
-function AddHorseScreen({ horseList, changeScreen, horseIndex }) {
+function AddHorseScreen({ horseList, changeScreen, horseIndex, i18n, toggleLanguage }) {
   const [horseName, setHorseName] = useState("");
   const [horseInfo, setHorseInfo] = useState("");
   const [horsePrice, setHorsePrice] = useState("");
@@ -40,8 +40,10 @@ function AddHorseScreen({ horseList, changeScreen, horseIndex }) {
       <View style={{ backgroundColor: "#fff5f5" }}>
         <View style={styles.container}>
           <View style={[styles.container, styles.underLine]}>
-            <Ionicons style={styles.icon} name="apps"></Ionicons>
-            <Text style={styles.title}>Horse show</Text>
+            <Btn buttonStyle={styles.button} onPress={toggleLanguage}>
+              <Ionicons style={styles.icon} name="apps"></Ionicons>
+            </Btn>
+            <Text style={styles.title}>{i18n.t("appName")}</Text>
             <Btn
               buttonStyle={[styles.addHorseBtn, styles.backButton]}
               onPress={setHorseScreen}
@@ -61,21 +63,21 @@ function AddHorseScreen({ horseList, changeScreen, horseIndex }) {
             { marginLeft: 50, marginTop: 20, color: "#e8e8e8" },
           ]}
         >
-          Edit Your Horse
+          {i18n.t("Edit_Your_Horse")}
         </Text>
         <TextInput
-          placeholder="Name"
+          placeholder={i18n.t("Name")}
           style={styles.textInputContainer}
           onChangeText={HorseName}
         />
         <TextInput
-          placeholder="About"
+          placeholder={i18n.t("About")}
           style={[styles.textInputContainer, { paddingVertical: 30 }]}
           multiline={true}
           onChangeText={HorseAbout}
         />
         <TextInput
-          placeholder="Price"
+          placeholder={i18n.t("Price")}
           style={styles.textInputContainer}
           onChangeText={HorsePrice}
         />
@@ -93,7 +95,7 @@ function AddHorseScreen({ horseList, changeScreen, horseIndex }) {
             buttonText={styles.addHorseText}
             onPress={editHorse}
           >
-            Save
+            {i18n.t("Save")}
           </Btn>
         </LinearGradient>
       </View>
@@ -112,12 +114,9 @@ const styles = StyleSheet.create({
     marginTop: 20,
     marginBottom: 5,
   },
-
   icon: {
-    backgroundColor: "#580000",
     color: "#ffffff",
     fontSize: 25,
-    padding: 10,
     borderRadius: 70,
     elevation: 2,
     shadowColor: "#580000",
@@ -194,4 +193,11 @@ const styles = StyleSheet.create({
   backText: {
     fontSize: 27,
   },
+  button: {
+    backgroundColor: "#580000",
+    paddingHorizontal: 11,
+    paddingVertical: 10,
+    margin: 0,
+    borderRadius: 30
+  }
 });
